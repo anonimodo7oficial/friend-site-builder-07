@@ -2,94 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 97%;
+    --foreground: 220 13% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 13% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 18%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 46 100% 50%;
+    --primary-foreground: 220 13% 18%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 60% 45%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14% 92%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 145 63% 42%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 46 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.375rem;
+
+    --marketplace-yellow: 46 100% 50%;
+    --marketplace-blue: 220 60% 45%;
+    --marketplace-blue-dark: 220 65% 35%;
+    --marketplace-green: 145 63% 42%;
+    --marketplace-light-blue: 210 100% 96%;
+    --marketplace-gray: 220 9% 46%;
+    --marketplace-gray-light: 220 14% 96%;
+    --marketplace-orange: 25 95% 53%;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -100,6 +62,97 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@layer utilities {
+  .marketplace-header {
+    background: hsl(var(--marketplace-yellow));
+  }
+  
+  .marketplace-link {
+    color: hsl(var(--marketplace-blue));
+  }
+  
+  .marketplace-link:hover {
+    color: hsl(var(--marketplace-blue-dark));
+  }
+
+  .marketplace-green {
+    color: hsl(var(--marketplace-green));
+  }
+
+  .marketplace-price {
+    color: hsl(var(--foreground));
+    font-weight: 300;
+  }
+
+  .marketplace-old-price {
+    color: hsl(var(--marketplace-gray));
+    text-decoration: line-through;
+  }
+
+  .marketplace-discount {
+    color: hsl(var(--marketplace-green));
+    font-weight: 600;
+  }
+
+  .marketplace-btn-primary {
+    background: hsl(var(--marketplace-blue));
+    color: white;
+    border-radius: 6px;
+    padding: 14px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background 0.2s;
+    width: 100%;
+    text-align: center;
+  }
+
+  .marketplace-btn-primary:hover {
+    background: hsl(var(--marketplace-blue-dark));
+  }
+
+  .marketplace-btn-secondary {
+    background: hsl(var(--marketplace-light-blue));
+    color: hsl(var(--marketplace-blue));
+    border-radius: 6px;
+    padding: 14px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background 0.2s;
+    width: 100%;
+    text-align: center;
+  }
+
+  .marketplace-btn-secondary:hover {
+    background: hsl(210 100% 92%);
+  }
+
+  .marketplace-badge {
+    background: hsl(var(--marketplace-orange));
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  .thumbnail-active {
+    border: 2px solid hsl(var(--marketplace-blue));
+    border-radius: 6px;
+  }
+
+  .thumbnail-inactive {
+    border: 2px solid transparent;
+    border-radius: 6px;
+    opacity: 0.7;
+  }
+
+  .thumbnail-inactive:hover {
+    opacity: 1;
+    border-color: hsl(var(--border));
   }
 }
