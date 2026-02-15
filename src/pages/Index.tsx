@@ -5,6 +5,7 @@ import SellerInfo from "@/components/SellerInfo";
 import PaymentMethods from "@/components/PaymentMethods";
 import ProductDescription from "@/components/ProductDescription";
 import RelatedProducts from "@/components/RelatedProducts";
+import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -12,20 +13,9 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main className="max-w-[1200px] mx-auto px-4 py-6">
-        {/* Breadcrumb */}
-        <nav className="text-xs text-muted-foreground mb-4">
-          <span className="marketplace-link cursor-pointer hover:underline">Voltar à lista</span>
-          <span className="mx-1">|</span>
-          <span className="marketplace-link cursor-pointer hover:underline">Eletrodomésticos</span>
-          <span className="mx-1">›</span>
-          <span className="marketplace-link cursor-pointer hover:underline">Fogões</span>
-          <span className="mx-1">›</span>
-          <span className="marketplace-link cursor-pointer hover:underline">Industriais</span>
-        </nav>
-
+      <main className="max-w-[1200px] mx-auto px-3 sm:px-4 py-4 sm:py-6">
         {/* Produto principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
           {/* Galeria */}
           <div className="lg:col-span-5">
             <ProductGallery />
@@ -43,10 +33,11 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Descrição e produtos relacionados */}
-        <div className="mt-8 space-y-6">
+        {/* Descrição, produtos relacionados e avaliações */}
+        <div className="mt-6 sm:mt-8 space-y-6">
           <ProductDescription />
           <RelatedProducts />
+          <Reviews />
         </div>
       </main>
 
