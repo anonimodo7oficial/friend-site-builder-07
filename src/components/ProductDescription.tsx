@@ -1,6 +1,5 @@
 import handshakeIcon from "@/assets/icons/icon-16.png";
 import shieldSmIcon from "@/assets/icons/icon-5.png";
-import arrowIcon from "@/assets/icons/icon-1.png";
 
 const ProductDescription = () => {
   return (
@@ -52,9 +51,9 @@ const ProductDescription = () => {
       </div>
 
       {/* Ficha técnica */}
-      <div className="bg-card rounded-lg p-4 border border-border">
-        <h2 className="text-lg font-semibold text-foreground mb-4">Ficha técnica</h2>
-        <div className="divide-y divide-border">
+      <div className="rounded-lg overflow-hidden border border-border">
+        <h2 className="text-lg font-semibold text-foreground p-4 bg-card">Ficha técnica</h2>
+        <div>
           {[
             ["Marca", "Industrial Cook"],
             ["Modelo", "IC-4000P"],
@@ -65,9 +64,14 @@ const ProductDescription = () => {
             ["Tipo de gás", "GLP (baixa pressão)"],
             ["Voltagem", "Bivolt"],
             ["Garantia", "12 meses"],
-          ].map(([label, value]) => (
-            <div key={label} className="flex py-2.5 text-sm">
-              <span className="w-1/2 text-muted-foreground">{label}</span>
+          ].map(([label, value], index) => (
+            <div
+              key={label}
+              className={`flex py-3 px-4 text-sm ${
+                index % 2 === 0 ? "bg-[hsl(var(--marketplace-gray-light))]" : "bg-card"
+              }`}
+            >
+              <span className="w-1/2 text-muted-foreground font-medium">{label}</span>
               <span className="w-1/2 text-foreground">{value}</span>
             </div>
           ))}
