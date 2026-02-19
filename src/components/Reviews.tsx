@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Star, ThumbsUp } from "lucide-react";
 
 const reviews = [
@@ -34,6 +35,8 @@ const reviews = [
 const Reviews = () => {
   const avgRating = 4.2;
   const totalReviews = 142;
+  const [helpfulClicked, setHelpfulClicked] = useState<Record<number, boolean>>({});
+
   const ratingDistribution = [
     { stars: 5, percent: 65 },
     { stars: 4, percent: 22 },
@@ -41,6 +44,10 @@ const Reviews = () => {
     { stars: 2, percent: 3 },
     { stars: 1, percent: 2 },
   ];
+
+  const toggleHelpful = (i: number) => {
+    setHelpfulClicked((prev) => ({ ...prev, [i]: !prev[i] }));
+  };
 
   return (
     <div className="bg-card rounded-lg p-4 sm:p-6 border border-border">
@@ -55,7 +62,9 @@ const Reviews = () => {
               <Star
                 key={i}
                 className={`w-4 h-4 ${
-                  i <= Math.round(avgRating) ? "fill-primary text-primary" : "text-border"
+                  i <= Math.round(avgRating)
+                    ? "fill-[hsl(var(--marketplace-blue))] text-[hsl(var(--marketplace-blue))]"
+                    : "text-border"
                 }`}
               />
             ))}
@@ -89,7 +98,9 @@ const Reviews = () => {
                   <Star
                     key={s}
                     className={`w-3 h-3 ${
-                      s <= review.rating ? "fill-primary text-primary" : "text-border"
+                      s <= review.rating
+                        ? "fill-[hsl(var(--marketplace-blue))] text-[hsl(var(--marketplace-blue))]"
+                        : "text-border"
                     }`}
                   />
                 ))}
@@ -100,18 +111,23 @@ const Reviews = () => {
             <p className="text-sm text-foreground leading-relaxed mb-2">{review.text}</p>
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground">{review.name}</span>
-              <button className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors">
-                <ThumbsUp className="w-3 h-3" />
-                Útil ({review.helpful})
+              <button
+                onClick={() => toggleHelpful(i)}
+                className={`flex items-center gap-1 text-xs transition-colors ${
+                  helpfulClicked[i]
+                    ? "text-[hsl(var(--marketplace-blue))]"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <ThumbsUp
+                  className={`w-3 h-3 ${helpfulClicked[i] ? "fill-[hsl(var(--marketplace-blue))]" : ""}`}
+                />
+                Útil ({helpfulClicked[i] ? review.helpful + 1 : review.helpful})
               </button>
             </div>
           </div>
         ))}
       </div>
-
-      <button className="w-full mt-5 py-2.5 text-sm marketplace-link font-medium hover:underline">
-        Ver todas as {totalReviews} avaliações
-      </button>
     </div>
   );
 };
