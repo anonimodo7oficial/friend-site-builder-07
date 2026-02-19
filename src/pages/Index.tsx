@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import Header from "@/components/Header";
 import ProductGallery from "@/components/ProductGallery";
 import ProductInfo from "@/components/ProductInfo";
@@ -9,6 +10,12 @@ import Reviews from "@/components/Reviews";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  const paymentRef = useRef<HTMLDivElement>(null);
+
+  const scrollToPayment = () => {
+    paymentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -23,13 +30,15 @@ const Index = () => {
 
           {/* Info do produto */}
           <div className="lg:col-span-4">
-            <ProductInfo />
+            <ProductInfo onScrollToPayment={scrollToPayment} />
           </div>
 
           {/* Sidebar */}
           <div className="lg:col-span-3 space-y-4">
             <SellerInfo />
-            <PaymentMethods />
+            <div ref={paymentRef}>
+              <PaymentMethods />
+            </div>
           </div>
         </div>
 
