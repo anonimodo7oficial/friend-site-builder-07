@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { Star, Share2, Heart, X, Minus, Plus, MapPin, Truck, Clock, ChevronRight } from "lucide-react";
+import { Star, Share2, Heart, X, Minus, Plus, Truck, Clock } from "lucide-react";
 import fullIcon from "@/assets/icons/icon-18.png";
 
 const colors = ["Preto", "Branco", "Inox"];
 
-const ProductInfo = () => {
+interface ProductInfoProps {
+  onScrollToPayment?: () => void;
+}
+
+const ProductInfo = ({ onScrollToPayment }: ProductInfoProps) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [showQuantitySheet, setShowQuantitySheet] = useState(false);
@@ -50,9 +54,12 @@ const ProductInfo = () => {
           <p className="text-sm marketplace-green font-medium mt-1">
             em 12x R$ 79,16
           </p>
-          <p className="text-xs marketplace-link mt-0.5 cursor-pointer hover:underline">
+          <button
+            onClick={onScrollToPayment}
+            className="text-xs marketplace-link mt-0.5 cursor-pointer hover:underline"
+          >
             Ver os meios de pagamento
-          </p>
+          </button>
         </div>
 
         <div className="flex items-center gap-2 py-2">
@@ -199,13 +206,6 @@ const ProductInfo = () => {
                 <button onClick={() => setShowDeliverySheet(false)}>
                   <X className="w-5 h-5 text-muted-foreground" />
                 </button>
-              </div>
-
-              {/* CEP */}
-              <div className="flex items-center gap-2 bg-muted/40 rounded-lg px-3 py-2.5 mb-5 border border-border">
-                <MapPin className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-                <span className="text-sm text-muted-foreground flex-1">Calcular para seu CEP</span>
-                <button className="text-xs marketplace-link font-medium">Alterar</button>
               </div>
 
               {/* Única opção */}
