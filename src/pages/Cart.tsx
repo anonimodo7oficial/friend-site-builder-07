@@ -116,7 +116,7 @@ const Cart = () => {
             <span className="font-semibold text-foreground">Total</span>
             <span className="font-bold text-lg text-foreground">R$ {formatPrice(totalPrice)}</span>
           </div>
-          <button className="marketplace-btn-primary mt-2">Continuar a compra</button>
+          <button onClick={() => navigate("/login")} className="marketplace-btn-primary mt-2">Continuar a compra</button>
         </div>
 
         {/* Recomendados */}
