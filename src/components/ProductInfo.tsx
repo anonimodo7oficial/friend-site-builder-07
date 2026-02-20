@@ -131,7 +131,7 @@ const ProductInfo = ({ onScrollToPayment }: ProductInfoProps) => {
         </div>
 
         <div className="space-y-2 pt-2">
-          <button className="marketplace-btn-primary">Comprar agora</button>
+          <button onClick={() => navigate("/login")} className="marketplace-btn-primary">Comprar agora</button>
           <button onClick={handleAddToCart} className="marketplace-btn-secondary">Adicionar ao carrinho</button>
         </div>
 
