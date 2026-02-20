@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Star, Share2, Heart, X, Minus, Plus, Truck, Clock } from "lucide-react";
 import fullIcon from "@/assets/icons/icon-18.png";
+import { useCart } from "@/contexts/CartContext";
+import stoveMain from "@/assets/product/stove-main.png";
 
 const colors = ["Preto", "Branco", "Inox"];
 
@@ -15,6 +18,21 @@ const ProductInfo = ({ onScrollToPayment }: ProductInfoProps) => {
   const [showDeliverySheet, setShowDeliverySheet] = useState(false);
   const [favorited, setFavorited] = useState(false);
   const [showShareToast, setShowShareToast] = useState(false);
+  const { addItem } = useCart();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    addItem({
+      id: `fogao-${colors[selectedColor].toLowerCase()}`,
+      title: `Fogão Industrial 4 Bocas Com Forno Baixa Pressão - ${colors[selectedColor]}`,
+      color: colors[selectedColor],
+      price: 849.9,
+      oldPrice: 1299,
+      quantity,
+      image: stoveMain,
+    });
+    navigate("/carrinho");
+  };
 
   const handleShare = () => {
     navigator.clipboard?.writeText(window.location.href).catch(() => {});
@@ -114,7 +132,7 @@ const ProductInfo = ({ onScrollToPayment }: ProductInfoProps) => {
 
         <div className="space-y-2 pt-2">
           <button className="marketplace-btn-primary">Comprar agora</button>
-          <button className="marketplace-btn-secondary">Adicionar ao carrinho</button>
+          <button onClick={handleAddToCart} className="marketplace-btn-secondary">Adicionar ao carrinho</button>
         </div>
 
         <div className="flex items-center justify-center gap-6 pt-2">
