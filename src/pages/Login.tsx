@@ -18,7 +18,7 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // No backend — just visual for now
+    navigate("/endereco");
   };
 
   const handleBack = () => {
@@ -69,7 +69,7 @@ const Login = () => {
 
             <button
               type="button"
-              onClick={() => {}}
+              onClick={() => navigate("/cadastro")}
               className="w-full text-center text-base font-semibold"
               style={{ color: "hsl(217, 89%, 61%)" }}
             >
