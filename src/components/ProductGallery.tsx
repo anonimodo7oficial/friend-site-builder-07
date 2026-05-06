@@ -62,7 +62,11 @@ const ProductGallery = () => {
             <img
               src={img}
               alt={`Produto ${i + 1}`}
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+              {...(i === 0 ? { fetchPriority: "high" as any } : {})}
               className="max-w-full max-h-[300px] sm:max-h-[400px] object-contain"
+              draggable={false}
             />
           </div>
         ))}
