@@ -24,6 +24,27 @@ const Address = () => {
   const update = (field: string, value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
+  const handleCep = async (raw: string) => {
+    const digits = raw.replace(/\D/g, "").slice(0, 8);
+    update("cep", digits);
+    if (digits.length === 8) {
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${digits}/json/`);
+        const data = await res.json();
+        if (!data.erro) {
+          setForm((p) => ({
+            ...p,
+            cep: digits,
+            street: data.logradouro || p.street,
+            neighborhood: data.bairro || p.neighborhood,
+            city: data.localidade || p.city,
+            state: data.uf || p.state,
+          }));
+        }
+      } catch {}
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     navigate("/frete");
@@ -48,8 +69,8 @@ const Address = () => {
             Adicione um endereço
           </h1>
 
-          <Field label="Nome completo" value={form.name} onChange={(v) => update("name", v)} />
-          <Field label="Telefone" value={form.phone} onChange={(v) => update("phone", v)} type="tel" />
+          <Field label="Nome completo" value={form.name} onChange={(v) => update("name", v.replace(/[^A-Za-zÀ-ÿ\s]/g, ""))} />
+          <Field label="Telefone" value={form.phone} onChange={(v) => update("phone", v.replace(/\D/g, "").slice(0, 11))} type="tel" inputMode="numeric" />
 
           <div className="pt-2">
             <div className="flex items-baseline gap-3 mb-2">
@@ -60,8 +81,10 @@ const Address = () => {
             </div>
             <input
               type="text"
+              inputMode="numeric"
+              maxLength={9}
               value={form.cep}
-              onChange={(e) => update("cep", e.target.value)}
+              onChange={(e) => handleCep(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-3.5 text-foreground text-base outline-none focus:border-[hsl(var(--marketplace-blue))] transition-colors"
               required
             />
@@ -116,17 +139,20 @@ const Field = ({
   onChange,
   type = "text",
   required = true,
+  inputMode,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
   required?: boolean;
+  inputMode?: "text" | "numeric" | "email" | "tel" | "search" | "url" | "decimal" | "none";
 }) => (
   <div>
     <label className="text-base text-foreground font-medium mb-2 block">{label}</label>
     <input
       type={type}
+      inputMode={inputMode}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="w-full border border-gray-300 rounded-lg px-4 py-3.5 text-foreground text-base outline-none focus:border-[hsl(var(--marketplace-blue))] transition-colors"

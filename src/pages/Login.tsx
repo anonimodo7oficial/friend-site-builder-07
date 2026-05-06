@@ -51,11 +51,14 @@ const Login = () => {
                 E-mail ou telefone
               </label>
               <input
-                type="text"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-gray-300 rounded-xl px-4 py-4 text-foreground text-base outline-none focus:border-[hsl(var(--marketplace-blue))] transition-colors"
                 autoFocus
+                required
               />
             </div>
 

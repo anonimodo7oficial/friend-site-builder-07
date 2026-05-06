@@ -71,7 +71,7 @@ const Register = () => {
               <input
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value.replace(/[^A-Za-zÀ-ÿ\s]/g, ""))}
                 placeholder="Ex: Maria da Silva"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3.5 text-foreground text-base outline-none focus:border-[hsl(var(--marketplace-blue))] transition-colors"
                 required
@@ -92,9 +92,10 @@ const Register = () => {
               </label>
               <input
                 type="tel"
+                inputMode="numeric"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Ex: 11 9 9999-9999"
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 11))}
+                placeholder="Ex: 11999999999"
                 className="w-full border border-gray-300 rounded-xl px-4 py-3.5 text-foreground text-base outline-none focus:border-[hsl(var(--marketplace-blue))] transition-colors"
                 required
               />
