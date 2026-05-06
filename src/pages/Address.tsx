@@ -69,8 +69,8 @@ const Address = () => {
             Adicione um endereço
           </h1>
 
-          <Field label="Nome completo" value={form.name} onChange={(v) => update("name", v)} />
-          <Field label="Telefone" value={form.phone} onChange={(v) => update("phone", v)} type="tel" />
+          <Field label="Nome completo" value={form.name} onChange={(v) => update("name", v.replace(/[^A-Za-zÀ-ÿ\s]/g, ""))} />
+          <Field label="Telefone" value={form.phone} onChange={(v) => update("phone", v.replace(/\D/g, "").slice(0, 11))} type="tel" inputMode="numeric" />
 
           <div className="pt-2">
             <div className="flex items-baseline gap-3 mb-2">
