@@ -139,17 +139,20 @@ const Field = ({
   onChange,
   type = "text",
   required = true,
+  inputMode,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
   required?: boolean;
+  inputMode?: "text" | "numeric" | "email" | "tel" | "search" | "url" | "decimal" | "none";
 }) => (
   <div>
     <label className="text-base text-foreground font-medium mb-2 block">{label}</label>
     <input
       type={type}
+      inputMode={inputMode}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="w-full border border-gray-300 rounded-lg px-4 py-3.5 text-foreground text-base outline-none focus:border-[hsl(var(--marketplace-blue))] transition-colors"
