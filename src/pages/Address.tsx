@@ -24,6 +24,27 @@ const Address = () => {
   const update = (field: string, value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
+  const handleCep = async (raw: string) => {
+    const digits = raw.replace(/\D/g, "").slice(0, 8);
+    update("cep", digits);
+    if (digits.length === 8) {
+      try {
+        const res = await fetch(`https://viacep.com.br/ws/${digits}/json/`);
+        const data = await res.json();
+        if (!data.erro) {
+          setForm((p) => ({
+            ...p,
+            cep: digits,
+            street: data.logradouro || p.street,
+            neighborhood: data.bairro || p.neighborhood,
+            city: data.localidade || p.city,
+            state: data.uf || p.state,
+          }));
+        }
+      } catch {}
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     navigate("/frete");
@@ -60,8 +81,10 @@ const Address = () => {
             </div>
             <input
               type="text"
+              inputMode="numeric"
+              maxLength={9}
               value={form.cep}
-              onChange={(e) => update("cep", e.target.value)}
+              onChange={(e) => handleCep(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-3.5 text-foreground text-base outline-none focus:border-[hsl(var(--marketplace-blue))] transition-colors"
               required
             />
